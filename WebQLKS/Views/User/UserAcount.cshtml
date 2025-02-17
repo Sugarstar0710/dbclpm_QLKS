@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_KhachHang>
+
+@{
+    ViewBag.Title = "UserAcount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <meta charset="UTF-8">
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .profile-container {
+        width: 50%;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+
+    .profile-details p {
+        margin: 10px 0;
+    }
+
+    .profile-details strong {
+        display: inline-block;
+        width: 150px;
+    }
+</style>
+<body>
+    <div class="profile-container">
+        @foreach (var pro in Model)
+        {
+            <div class="profile-header">
+                <img src="{{ user.profile_pic }}" alt="Profile Picture" class="profile-pic">
+                <h1>@Html.DisplayFor(Model => pro.HoTen)</h1>
+                @*<p>{{ user.bio }}</p>*@  
+            </div>
+            <div class="profile-details">
+                <p><strong>Mã Khách hàng:</strong>@Html.DisplayFor(Model=>pro.MaKH)</p>
+                <p><strong>Tài khoản người dùng:</strong>@Html.DisplayFor(Model=>pro.TaiKhoan)</p>
+                <p><strong>Email:</strong>@Html.DisplayFor(Model=>pro.Email)</p>
+                <p><strong>Ngày sinh:</strong>@Html.DisplayFor(Model=>pro.NgaySinh)</p>
+                <p><strong>Căn cước công dân:</strong>@Html.DisplayFor(Model=>pro.CCCD)</p>
+                <p><strong>Địa chỉ:</strong>@Html.DisplayFor(Model=>pro.DiaChi)</p>
+                <p><strong>Quốc tịch:</strong>@Html.DisplayFor(Model=>pro.MaLoaiKH)</p>
+            </div>
+        }
+    </div>
+</body>

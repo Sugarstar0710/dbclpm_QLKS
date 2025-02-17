@@ -1,0 +1,89 @@
+﻿@model WebQLKS.Models.tbl_KhachHang
+
+
+@{
+    ViewBag.Title = "LoginAcountKH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <meta charset="UTF-8">
+}
+
+<style>
+    .field-validation-error {
+        color: rgb(223, 101, 92);
+    }
+
+    .background {
+        margin: 0px;
+        padding: 0px;
+        color: white;
+        height: 100vh;
+        background-image: url('/Content/Home/Image/image_bg.jpg');
+        background-size: cover;
+    }
+
+    .form-login {
+        display: grid;
+        place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
+        height: 100vh;
+        width: 100%;
+    }
+
+    .word-font {
+        color: white
+    }
+
+    .form-login > form {
+        border: 1px solid white;
+        width: fit-content;
+        padding: 5%;
+        border-radius: 30px;
+        background-color: rgba(0, 0, 0, 0.58);
+    }
+</style>
+
+<div class="container-fluid background">
+    @if (TempData["SaiThongTin"] != null)
+    {
+        <div class="alert alert-danger text-center position-absolute" style="top: 40%;left:43%;width:fit-content">
+            @TempData["SaiThongTin"]
+        </div>
+    }
+    @if (TempData["SessionKhNull"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            @TempData["SessionKhNull"]
+        </div>
+    }
+    <div class="form-login">
+
+        @using (Html.BeginForm("LoginAcountKH", "LoginAcount", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <form>
+
+                <h1 class="h3 mb-3 fw-normal text-center fw-bold">ĐĂNG NHẬP</h1>
+
+                <div class="form-floating">
+                    <div><label for="TaiKhoan">Tài khoản</label></div>
+                    <input type="text" class="form-control w-100" style="max-width:100%;padding-top:0;padding-bottom:0" id="TaiKhoan" name="TaiKhoan" required>
+
+                </div>
+                <div class="form-floating">
+                    <div><label for="MatKhau">Mật khẩu</label></div>
+                    <input type="password" class="form-control w-100" style="max-width:100%;padding-top:0;padding-bottom:0" id="MatKhau" name="MatKhau" required>
+
+                </div>
+
+                @*<div class="form-check text-start my-3">
+                        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Ghi nhớ đăng nhập
+                        </label>
+                    </div>*@
+                <button class="btn btn-primary w-100 py-2" type="submit" style="margin-top:10px">Đăng nhập</button>
+                <a class="word-font" href="/LoginAcount/RegisterKH">Tạo tài khoản</a>
+            </form>
+        }
+
+    </div>
+</div>

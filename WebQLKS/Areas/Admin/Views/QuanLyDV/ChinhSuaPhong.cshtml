@@ -1,0 +1,71 @@
+﻿@model WebQLKS.Models.tbl_Phong
+
+@{
+    ViewBag.Title = "ChinhSuaPhong";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container w-75 mt-3 card">
+    <h2>Chỉnh sửa</h2>
+
+    @using (Html.BeginForm("ChinhSuaPhong", "QuanLyDV", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Phòng @Model.SoPhong</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MaPhong)
+
+            <div class="form-group">
+                Số phòng:
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SoPhong, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SoPhong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Loại Phòng
+                <div class="col-md-10">
+                    @Html.DropDownListFor(Model => Model.MaLoaiPhong, ViewBag.MaLoai as SelectList, "Loại Phòng", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MaLoaiPhong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Trạng thái phòng:
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.MaTrangThai, ViewBag.maTT as SelectList, "Trạng Thái", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MaTrangThai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Hình ảnh:
+                <div class="col-md-10">
+                    @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                    {
+                        <img src="@Url.Content("~/Content/Room/img/" + Model.HinhAnh)" alt="Current Image" style="max-height: 100px;" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/Home/Image/empty.jpg" style="max-height: 100px;" />
+                    }
+                    <input type="file" name="img" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-warning" />
+                </div>
+            </div>
+        </div>
+    }
+    <div>
+        <button type="button" class="btn btn-default" onclick="window.history.back();">Quay lại</button>
+    </div>
+</div>

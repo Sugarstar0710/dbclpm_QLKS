@@ -1,0 +1,116 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_DichVuDaDat>
+
+@{
+    ViewBag.Title = "historyService";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .scrollable-table {
+        max-height: 70vh; /* Chiều cao tối đa của bảng */
+        height: 70vh;
+        overflow-y: auto; /* Cho phép cuộn theo chiều dọc khi nội dung vượt quá kích thước */
+        display: block; /* Đảm bảo bảng hiển thị như một khối để có thể sử dụng overflow-y */
+    }
+    .noline {
+        white-space: nowrap;
+    }
+</style>
+<div class="container card mt-3 w-75 scrollable-table" style="min-height:50vh">
+    <h2 class="text-center fw-bold text-uppercase">Lịch sử dịch vụ</h2>
+    <table class="table text-center">
+        <tr class="text-center">
+            <th style="width:10%">
+                Ngày
+            </th>
+            <th>
+                Tên dịch vụ
+            </th>
+            <th>
+                Mã khách hàng
+            </th>
+            <th>
+                Người sử dụng dịch vụ
+            </th>
+            <th>
+                Người thực hiện dịch vụ
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="7" class="text-center mt-auto">
+                    <div style="height:50vh;margin-top:20%">Hiện bạn chưa đặt dịch vụ nào</div>
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgaySuDungDV)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbl_DichVu.TenDV)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbl_HoaDon.MaKH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbl_KhachHang.HoTen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbl_NhanVien.HoTen)
+                    </td>
+                    <td>
+                        @if (item.MaTrangThaiDV == "TT01")
+                        {
+                            <div class="badge text-bg-warning noline">@Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)</div>
+                        }
+                        @if (item.MaTrangThaiDV == "TT02")
+                        {
+                            <div class="badge text-bg-info noline text-light">@Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)</div>
+                        }
+                        @if (item.MaTrangThaiDV == "TT03")
+                        {
+                            <div class="badge text-bg-success noline">@Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)</div>
+                        }
+                        @if (item.MaTrangThaiDV == "TT04")
+                        {
+                            <div class="badge text-bg-danger noline text-wrap">@Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)</div>
+                        }
+                    </td>
+                    @{
+                        if (item.MaTrangThaiDV == "TT01")
+                        {
+                            <td>
+                                <div class="d-flex">
+                                    @Html.ActionLink("Xem", "ChiTietDichVu", new { id = item.ID }, new { @class = "btn btn-primary" }) |
+                                    @Html.ActionLink("Hủy dịch vụ", "HuyDichVu", new { id = item.ID }, new { @class = "btn btn-danger noline" })
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="d-flex">
+                                    @Html.ActionLink("Xem", "ChiTietDichVu", new { id = item.ID }, new { @class = "btn btn-primary noline" }) |
+                                    <a class="btn btn-danger noline disabled" href="#">Hủy dịch vụ</a>
+                                </div>
+                            </td>
+                        }
+                    }
+
+                </tr>
+            }
+
+        }
+
+    </table>
+</div>

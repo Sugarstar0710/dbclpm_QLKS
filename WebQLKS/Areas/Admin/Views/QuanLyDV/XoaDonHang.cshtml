@@ -1,0 +1,77 @@
+﻿@model WebQLKS.Models.tbl_DichVuDaDat
+
+@{
+    ViewBag.Title = "XoaDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container mt-3 w-75 text-center card">
+    <h2>Xóa Đơn Hàng</h2>
+    <h3>Bạn có chắc muốn xóa đơn hàng này?</h3>
+    <div>
+        <h4>Mã Đơn Hàng: @Model.ID</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Thời gian:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgaySuDungDV)
+            </dd>
+
+            <dt>
+                Tên dịch vụ:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_DichVu.TenDV)
+            </dd>
+
+            <dt>
+                Trạng thái:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_TrangThaiDichVu.TenTrangThai)
+            </dd>
+
+            <dt>
+                Mã khách hàng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_HoaDon.MaKH)
+            </dd>
+
+            <dt>
+                Họ tên khách hàng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_KhachHang.HoTen)
+            </dd>
+
+            <dt>
+                Nhân viên thực hiện dịch vụ:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_NhanVien.HoTen)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa Đơn Hàng" class="btn btn-danger" />
+                <div>
+                    <button type="button" class="btn btn-de" onclick="history.back();">Quay lại</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

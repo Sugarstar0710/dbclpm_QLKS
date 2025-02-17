@@ -1,0 +1,85 @@
+﻿@model WebQLKS.Models.tbl_PhieuThuePhong
+
+@{
+    ViewBag.Title = "ChiTietPhieuThue";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container w-50 card text-center mt-5">
+    <h2>Chi tiết phiếu thuê</h2>
+
+    <div>
+        <h4>Phiếu thuê phòng</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Ngày check-in:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgayBatDauThue)
+            </dd>
+
+            <dt>
+                Ngày check-out:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgayKetThucThue)
+            </dd>
+
+            <dt>
+                Số lượng khách:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SLKhach)
+            </dd>
+
+            <dt>
+                Số lượng khách nước ngoài:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SLKhachNuocNgoai)
+            </dd>
+
+            <dt>
+                Trạng thái phiếu đặt phòng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TrangThai)
+            </dd>
+
+            <dt>
+                Họ tên khách hàng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_KhachHang.HoTen)
+            </dd>
+
+            <dt>
+                Mã loại phòng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_Phong.MaLoaiPhong)
+            </dd>
+            <dt>
+                Mã phòng:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaPhong)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Chỉnh sửa phiếu thuê", "ChinhSuaPhieuThue", new { maPhieuThue = Model.MaPhieuThuePhong }, new { @class = "btn btn-success" })
+        <div>
+            <button type="button" class="btn btn-default" onclick="history.back();">Quay lại</button>
+        </div>
+    </p>
+</div>

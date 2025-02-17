@@ -1,0 +1,86 @@
+﻿@model WebQLKS.Models.tbl_PhieuThuePhong
+
+@{
+    ViewBag.Title = "XoaPhieuThue";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container card w-75 text-center">
+    <h2>Xóa phiếu thuê phòng</h2>
+
+    <h3>Bạn có chắc muốn xóa phiếu thuê này?</h3>
+    <div>
+        <h4>Phiếu thuê phòng</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Ngày check-in
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgayBatDauThue)
+            </dd>
+
+            <dt>
+                Số lượng khách:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SLKhach) người
+            </dd>
+
+            <dt>
+                Số lượng khách nước ngoài:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SLKhachNuocNgoai) người
+            </dd>
+
+            <dt>
+                Ngày check-out
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgayKetThucThue)
+            </dd>
+
+            <dt>
+                Trạng thái phiếu thuê
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TrangThai)
+            </dd>
+
+            <dt>
+                Họ tên khách hàng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_KhachHang.HoTen)
+            </dd>
+
+            <dt>
+                Loại phòng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_Phong.MaLoaiPhong)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa phiếu thuê" class="btn btn-danger" />
+                <div>
+                    <button type="button" class="btn btn-default" onclick="history.back();">Quay lại</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

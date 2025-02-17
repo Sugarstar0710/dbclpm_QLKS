@@ -1,0 +1,122 @@
+﻿@model WebQLKS.Models.tbl_PhieuThuePhong
+
+@{
+    ViewBag.Title = "ChinhSuaPhieuThue";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container w-50 card mt-3">
+    <h2>Chỉnh Sửa Phiếu Thuê</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Phiếu thuê phòng</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MaPhieuThuePhong)
+
+            <div class="form-group">
+                Ngày Check-in
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.NgayBatDauThue, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @id = "NgayBatDauThue" })
+                    @Html.ValidationMessageFor(model => model.NgayBatDauThue, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Phòng
+                <div class="col-md-10">
+                    @Html.DropDownList("MaPhong", (SelectList)ViewBag.mphong, htmlAttributes: new { @class = "form-control", @id = "MaPhong" })
+                    @Html.ValidationMessageFor(model => model.MaPhong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Số Lượng Khách
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SLKhach, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SLKhach, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Số Khách Nước Ngoài
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SLKhachNuocNgoai, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SLKhachNuocNgoai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Ngày Check-out
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.NgayKetThucThue, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @id = "NgayKetThucThue" })
+                    @Html.ValidationMessageFor(model => model.NgayKetThucThue, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Trạng Thái
+                <div class="col-md-10">
+                    @Html.DropDownList("TrangThai", (SelectList)ViewBag.TT, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Mã Khách Hàng
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MaKH, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 mt-3" >
+                    <input type="submit" value="Chỉnh Sửa" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        <button type="button" class="btn btn-default" onclick="history.back();">Quay lại</button>
+    </div>
+</div>
+@section scripts{
+    <script>
+        var maPhong = '@Model.MaPhong';
+        function capNhatPhongTrong() {
+            var dateS = $('#NgayBatDauThue').val();
+            var dateE = $('#NgayKetThucThue').val();
+            if (dateS && dateE) {
+                $.ajax({
+                    url: '@Url.Action("HienThiPhongTrong", "QuanLyDV")',
+                    type: 'GET',
+                    data: { dateS: dateS, dateE: dateE, maPhong: maPhong },
+                    success: function (data) {
+                        var dropdown = $('#MaPhong');
+                        dropdown.empty();
+                        $.each(data, function (i, item) {
+                            dropdown.append($('<option>', {
+                                value: item.MaPhong,
+                                text: item.SoPhong
+                            }))
+                        });
+                    },
+                    error: function () {
+                        alert('Đã xảy ra lỗi khi tải danh sách phòng trống.');
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            $('#NgayBatDauThue, #NgayKetThucThue').change(capNhatPhongTrong);
+            capNhatPhongTrong();
+        });
+    </script>    
+}

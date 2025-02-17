@@ -1,0 +1,125 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_PhieuThuePhong>
+
+@{
+    ViewBag.Title = "historyOrdRoom";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .scrollable-table {
+        max-height: 70vh; /* Chiều cao tối đa của bảng */
+        height: 70vh;
+        overflow-y: auto; /* Cho phép cuộn theo chiều dọc khi nội dung vượt quá kích thước */
+        display: block; /* Đảm bảo bảng hiển thị như một khối để có thể sử dụng overflow-y */
+    }
+
+    .noline {
+        white-space: nowrap;
+    }
+</style>
+<div class="container w-75 card scrollable-table mt-3" style="min-height:50vh;max-height:fit-content">
+    <h2 class="text-center fw-bold text-uppercase">Lịch sử đặt phòng</h2>
+    <table class="table text-center">
+        <tr>
+            <th>
+                Ngày check-in
+            </th>
+            <th>
+                Số lượng khách
+            </th>
+            <th>
+                Số lượng khách nước ngoài
+            </th>
+            <th>
+                Ngày check-out
+            </th>
+
+            <th>
+                Loại Phòng
+            </th>
+            <th>
+                Họ tên khách hàng
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="7" class="text-center mt-auto">
+                    <div style="height:50vh;margin-top:20%">Hiện bạn chưa đặt phòng nào</div>
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayBatDauThue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SLKhach)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SLKhachNuocNgoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayKetThucThue)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaPhong)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbl_KhachHang.HoTen)
+                    </td>
+                    <td>
+                        @if (item.TrangThai == "Chưa xác nhận")
+                        {
+                            <div class="badge text-bg-warning noline">@Html.DisplayFor(modelItem => item.TrangThai)</div>
+                        }
+                        @if (item.TrangThai == "Chưa nhận phòng")
+                        {
+                            <div class="badge text-bg-info text-light noline">@Html.DisplayFor(modelItem => item.TrangThai)</div>
+                        }
+                        @if (item.TrangThai == "Đã nhận phòng")
+                        {
+                            <div class="badge text-bg-success text-wrap">@Html.DisplayFor(modelItem => item.TrangThai)</div>
+                        }
+                        @if (item.TrangThai == "Đã hủy")
+                        {
+                            <div class="badge text-bg-danger text-wrap">@Html.DisplayFor(modelItem => item.TrangThai)</div>
+                        }
+                    </td>
+                    @{
+                        if (item.TrangThai == "Chưa xác nhận")
+                        {
+                            <td>
+                                <div class="d-flex">
+                                    @Html.ActionLink("Xem", "ChiTietPhieuThue", new { maPT = item.MaPhieuThuePhong }, new { @class = "btn btn-primary" })
+                                    @Html.ActionLink("Hủy đặt phòng", "HuyDatPhong", new { maPT = item.MaPhieuThuePhong }, new { @class = "btn btn-danger noline" })
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="d-flex">
+                                    @Html.ActionLink("Xem", "ChiTietPhieuThue", new { maPT = item.MaPhieuThuePhong }, new { @class = "btn btn-primary noline" })
+                                    <a class="btn btn-danger noline disabled" href="#">Hủy đặt phòng</a>
+                                </div>
+                            </td>
+                        }
+                    }
+
+
+                </tr>
+            }
+
+        }
+
+    </table>
+</div>

@@ -1,0 +1,53 @@
+﻿body {
+}
+
+.container-bread {
+    height: 50px;
+}
+
+.content {
+    height: auto;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    height: 70vh;
+    object-fit:cover;
+}
+
+.slide {
+    margin-left:10%;
+    width:80%;
+}
+
+.Description {
+    height: fit-content;
+}
+
+.des-content {
+    height: fit-content;
+    margin: 10px;
+    font-family: Cambria;
+    font-size: 20px;
+}
+
+.button{
+    height: 30%;
+    text-align:center;
+}
+.btn{
+    font-size:20px;
+    font-weight:bold;
+}
+.button > .btn {
+    width: 10%;
+    height: 30%;
+    border-radius: 20px;
+    background-color: seagreen;
+}
+.des-title > h2 {
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 10px;
+    font-family: Cambria;
+}

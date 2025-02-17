@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_Phong>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SoPhong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HinhAnh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_LoaiPhong.TenLoaiPhong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_TrangThaiPhong.TenTrangThai)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoPhong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HinhAnh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_LoaiPhong.TenLoaiPhong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_TrangThaiPhong.TenTrangThai)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaPhong }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaPhong }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaPhong })
+        </td>
+    </tr>
+}
+
+</table>

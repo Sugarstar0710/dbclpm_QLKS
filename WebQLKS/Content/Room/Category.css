@@ -1,0 +1,123 @@
+﻿.cate-container {
+    font-family: Cambria;
+    height: fit-content;
+    padding: 0;
+}
+
+.cate-banner {
+    /*border: 1px solid black;*/
+    height: 95vh;
+    background-image: url(../Home/Image/dr5cbbya3md01.jpg);
+    background-size:cover;
+}
+
+.cate-banner-trans {
+    background-color: rgba(20, 39, 74, 0.3);
+    width: 100%;
+    height: 100%;
+}
+
+.cate-banner-content {
+    color: white;
+    text-align: center;
+    width: 70%;
+    margin-left: 15%;
+    position: relative;
+    top: 35vh;
+}
+
+    .cate-banner-content > h3, h4 {
+        font-weight: bold;
+    }
+
+.cate-banner-text {
+    font-size: large;
+}
+
+.cate-list {
+    height: fit-content;
+    /*border: 1px solid black;*/
+}
+
+.cate-item {
+    border: 2px solid lightgoldenrodyellow;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    background-color: cadetblue;
+}
+
+.cate-img {
+    /* border: 1px solid black;*/
+    width: 50%;
+}
+
+.cate-img-item {
+    border: solid 10px lightgray;
+    margin: 10%;
+    height: 80%;
+}
+
+    .cate-img-item > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.cate-content {
+    /*border: 1px solid black;*/
+    width: 50%;
+    color: lightgoldenrodyellow;
+}
+
+.cate-text {
+    /*border: 1px solid black;*/
+    height: 80%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.cate-tile {
+    /*border: 1px solid black;*/
+    height: fit-content;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: Garamond;
+}
+
+.cate-desc {
+    /*border: 1px solid black;*/
+    height: 200px;
+    font-family: Garamond;
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.cate-price {
+    /*    border: 1px solid black;
+*/ height: fit-content;
+    font-family: Garamond;
+    font-size: 25px;
+}
+
+.cate-price-title {
+    font-weight: bold;
+    font-family: Garamond;
+    font-size: 25px;
+}
+
+.cate-detail {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+    /*    border:1px solid black;
+*/
+}
+
+.cate-btn {
+    text-align: center;
+    height: 20%;
+}

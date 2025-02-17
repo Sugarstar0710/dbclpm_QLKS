@@ -1,0 +1,50 @@
+﻿.body-content {
+    height: 100vh;
+    background-image: url('/Content/Home/Image/background_2.jpg');
+    background-size: cover;
+}
+
+.ord-title {
+    text-transform: uppercase;
+    font-family: Cambria;
+    position:relative;
+    top:20vh;
+}
+h2, h4 {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+.form-horizontal {
+    font-family: Cambria;
+    font-weight:bold;
+    width: 50%;
+    border: 3px white solid;
+    position: relative;
+    top: 25vh;
+    left: 25%;
+    right: 25%;
+    background-color: rgb(128, 128, 128,0.2);
+}
+
+.form-group {
+    position: relative;
+    left: 25%;
+    right: 25%;
+    width: 50%;
+    margin: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.btn {
+    border-radius: 10px;
+    background-color: darkcyan;
+    color: white;
+}
+
+    .btn:hover {
+        background-color: dimgray;
+        color: white;
+    }

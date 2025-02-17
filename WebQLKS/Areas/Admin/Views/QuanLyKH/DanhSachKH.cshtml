@@ -1,0 +1,105 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_KhachHang>
+
+@{
+    ViewBag.Title = "DanhSachKH";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+    <meta charset="UTF-8">
+}
+<style>
+    table {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    td > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    td {
+        width: 50px;
+        height: 200px;
+    }
+</style>
+<div class="container">
+    <h2 class="text-center mt-2 fw-bold text-uppercase">Danh Sách Khách Hàng</h2>
+    <table class="table">
+        <tr>
+            <th>
+                Họ Tên
+            </th>
+            <th>
+                Tài Khoản
+            </th>
+            <th>
+                Mật Khẩu
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Số điện thoại
+            </th>
+            <th>
+                Ngày Sinh
+            </th>
+            <th>
+                Căn Cước Công Dân
+            </th>
+            <th>
+                Địa Chỉ
+            </th>
+            <th>
+                Quốc Tịch
+            </th>
+            <th>
+                Khách Hàng
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaiKhoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatKhau)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgaySinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CCCD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modeItem =>item.QuocTich)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_LoaiKhach.TenLoaiKH)
+                </td>
+                <td>
+                    <div class="d-flex">
+                        @Html.ActionLink("Xem chi tiết", "ChiTietKH", new { maKH = item.MaKH }, new { @class = "btn btn-info text-light" }) |
+                        @Html.ActionLink("Xóa Khách hàng", "XoaKH", new { maKH = item.MaKH }, new { @class = "btn btn-danger" })
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

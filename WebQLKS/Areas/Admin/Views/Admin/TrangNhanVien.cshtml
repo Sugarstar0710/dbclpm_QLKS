@@ -1,0 +1,118 @@
+﻿@model WebQLKS.Models.tbl_NhanVien
+
+@{
+    ViewBag.Title = "Trang Cá Nhân";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+    <meta charset="utf-8" />
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .profile-container {
+        width: 50%;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+
+    .profile-details p {
+        margin: 10px 0;
+    }
+
+    .profile-details strong {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .picture {
+        margin: auto;
+    }
+
+    .background {
+        color: white;
+        border: 1px solid black;
+        height: 90vh;
+        background-image: url('/Content/Home/Image/5fc0c12e9e3ce90ca6d0a794c911d8ea.jpg');
+        background-size: cover;
+    }
+    .btn-custom {
+        background-color: navy;
+        color: white;
+    }
+
+        .btn-custom:hover {
+            background-color: rgba(0, 0, 128, 1); /* Màu nền khi hover */
+        }
+</style>
+@{
+    if (TempData["LoginSuccess"] != null)
+    {
+        <div id="loginSuccessToast" class="alert alert-success container position-absolute fixed-top" style="width:30%;left:10%">
+            <div class="toast-header">
+                <strong class="me-auto text-center">@TempData["LoginSuccess"]</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Chúc mừng @Model.HoTen đã đăng nhập thành công!
+            </div>
+        </div>
+    }
+}
+<div class="container-fluid background">
+    <div>
+        <h2 class="fw-bolder mt-3" style="text-align:center">Thông tin nhân viên</h2>
+        <div class="profile-container">
+            <div class="profile-header">
+                <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="Profile Picture" class="profile-pic">
+                <h1> @Html.DisplayFor(model => model.HoTen)</h1>
+            </div>
+            <div class="profile-details">
+                <p><strong style="width:200px">Mã nhân viên:</strong>@Html.DisplayFor(Model => Model.MaNV)</p>
+                <p><strong style="width:200px">Tài khoản:</strong>@Html.DisplayFor(Model => Model.TaiKhoan)</p>
+                <p><strong style="width:200px">Mật khẩu:</strong>@Html.DisplayFor(Model => Model.MatKhau)</p>
+                <p><strong style="width:200px">Email:</strong>@Html.DisplayFor(Model => Model.Email)</p>
+                <p><strong style="width:200px">Ngày sinh:</strong>@Html.DisplayFor(Model => Model.NgaySinh)</p>
+                <p><strong style="width:200px">Chức vụ:</strong>@Html.DisplayFor(Model => Model.tbl_ChucVu.TenChucVu)</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="m-5 position-absolute bottom-0 end-0">
+    @Html.ActionLink("Chỉnh sửa thông tin", "EditNV", new { maNV = Model.MaNV }, new { @class = "btn btn-warning text-white" })
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var toastElement = document.getElementById('loginSuccessToast');
+        if (toastElement) {
+            setTimeout(function () {
+                // Tạo một sự kiện click trên nút đóng
+                var closeButton = toastElement.querySelector('.btn-close');
+                if (closeButton) {
+                    closeButton.click();
+                }
+            }, 3000); // Đặt thời gian tự động đóng là 3000ms (3 giây)
+        }
+    });
+</script>
+

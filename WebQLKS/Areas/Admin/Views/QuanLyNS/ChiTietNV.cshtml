@@ -1,0 +1,139 @@
+﻿@model WebQLKS.Models.tbl_NhanVien
+
+@{
+    ViewBag.Title = "ChiTietNV";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+    <meta charset="utf-8" />
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .profile-container {
+        width: 50%;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+
+    .profile-details p {
+        margin: 10px 0;
+    }
+
+    .profile-details strong {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .picture {
+        margin: auto;
+    }
+    .background {
+        color: white;
+        height: 100%;
+        background-image: url('/Content/Home/Image/5fc0c12e9e3ce90ca6d0a794c911d8ea.jpg');
+        background-size: cover;
+        
+    }
+</style>
+<div class="container-fluid background">
+    <h2 style="text-align:center; color:white">Thông tin nhân viên</h2>
+    <div>
+        <div>
+            <div class="profile-container">
+                <div class="profile-header">
+                    <img src="~/Content/Home/Image/image_bg.jpg" alt="Profile Picture" class="profile-pic">
+                    <h1> @Html.DisplayFor(model => model.HoTen)</h1>
+                </div>
+                <div class="profile-details">
+                    <p><strong style="width:200px">Mã nhân viên:</strong>@Html.DisplayFor(Model => Model.MaNV)</p>
+                    <p><strong style="width:200px">Tài khoản người dùng:</strong>@Html.DisplayFor(Model => Model.TaiKhoan)</p>
+                    <p><strong style="width:200px">Mật khẩu người dùng:</strong>@Html.DisplayFor(Model => Model.MatKhau)</p>
+                    <p><strong style="width:200px">Email:</strong>@Html.DisplayFor(Model => Model.Email)</p>
+                    <p><strong style="width:200px">Ngày sinh:</strong>@Html.DisplayFor(Model => Model.NgaySinh)</p>
+                    <p><strong style="width:200px">Chức vụ:</strong>@Html.DisplayFor(Model => Model.tbl_ChucVu.TenChucVu)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div>
+            <h4>tbl_NhanVien</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.HoTen)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HoTen)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TaiKhoan)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TaiKhoan)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MatKhau)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MatKhau)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NgaySinh)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NgaySinh)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.tbl_ChucVu.TenChucVu)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbl_ChucVu.TenChucVu)
+                </dd>
+
+            </dl>
+        </div>*@
+<div class="m-5 position-absolute bottom-0 end-0">
+    <p>
+        @Html.ActionLink("Sửa thông tin", "EditNV", new { maNV = Model.MaNV }, new { @class = "btn btn-success" }) 
+        @Html.ActionLink("Quay lại", "DanhSachNV",null, new { @class = "btn btn-info" })
+    </p>
+</div>
+</div>

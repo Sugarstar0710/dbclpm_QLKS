@@ -1,0 +1,118 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_DichVuDaDat>
+
+@{
+    ViewBag.Title = "DanhSachDatDoAn";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<style>
+    .noline {
+        white-space: nowrap;
+    }
+</style>
+<div class="container card w-75 mt-3" style="min-height:85vh;max-height:fit-content;">
+    <h2 class="text-center fw-bold mt-2">DANH SÁCH ĐẶT ĐỒ ĂN</h2>
+    <table class="table text-center">
+        <tr>
+            <th>
+                Ngày
+            </th>
+            <th>
+                Tên dịch vụ
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Mã khách hàng
+            </th>
+            <th>
+                Người sử dụng dịch vụ
+            </th>
+            <th>
+                Người thực hiện dịch vụ
+            </th>
+            <th></th>
+        </tr>
+        @{
+            if (!Model.Any())
+            {
+                <tr style="">
+                    <td colspan="7" class="text-center mt-auto">
+                        <div style="height:200px;margin-top:20%">Hiện chưa có khách đặt món</div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgaySuDungDV)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbl_DichVu.TenDV)
+                        </td>
+                        <td>
+                            @if (item.MaTrangThaiDV == "TT01")
+                            {
+                                <div class="badge text-bg-warning noline">@Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)</div>
+                            }
+                            @if (item.MaTrangThaiDV == "TT02")
+                            {
+                                <div class="badge text-bg-info noline text-light">@Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)</div>
+                            }
+                            @if (item.MaTrangThaiDV == "TT03")
+                            {
+                                <div class="badge text-bg-success noline">@Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)</div>
+                            }
+                            @if (item.MaTrangThaiDV == "TT04")
+                            {
+                                <div class="badge text-bg-danger noline text-wrap">@Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)</div>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbl_HoaDon.MaKH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbl_KhachHang.HoTen)
+                        </td>
+                        <td>
+                            @{
+                                if (item.MaNV == null)
+                                {
+                                    <div>Chưa xác nhận</div>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.tbl_NhanVien.HoTen)
+                                }
+
+
+}
+                        </td>
+                        <td class="">
+                            @if (item.MaTrangThaiDV == "TT01")
+                            {
+                                <div class="d-flex">
+                                    @Html.ActionLink("Xác Nhận", "XacNhanDonHang", new { id = item.ID }, new { @class = "btn btn-success" }) |
+                                    @Html.ActionLink("Xem chi tiết", "chiTietDonHang", new { id = item.ID }, new { @class = "btn btn-primary" }) |
+                                    @Html.ActionLink("Xóa Đơn", "XoaDonHang", new { id = item.ID }, new { @class = "btn btn-danger" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex">
+                                    <a class="btn btn-success  disabled" href="#">Xác nhận</a>|
+                                    @Html.ActionLink("Xem chi tiết", "chiTietDonHang", new { id = item.ID }, new { @class = "btn btn-primary" }) |
+                                    @Html.ActionLink("Xóa Đơn", "XoaDonHang", new { id = item.ID }, new { @class = "btn btn-danger" })
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        }
+
+    </table>
+</div>

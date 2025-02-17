@@ -1,0 +1,108 @@
+﻿@model WebQLKS.Models.tbl_HoaDon
+
+@{
+    ViewBag.Title = "ChiTietHoaDon";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    DateTime a = DateTime.Now.AddDays(3);
+
+}
+<div class="container text-center card mt-3 w-50">
+    <h2 class="text-uppercase fw-bold mt-2">Chi tiết hóa đơn</h2>
+
+    <div>
+        <h4 class="text-uppercase fw-bold">Hóa Đơn</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Mã hóa đơn:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaHD)
+            </dd>
+
+            <dt>
+                Ngày thanh toán:
+            </dt>
+
+            <dd>
+                @{
+                    if (Model.NgayThanhToan == null)
+                    {
+
+
+                        <p>Chưa xác nhận</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.NgayThanhToan)
+
+                    }
+                }
+            </dd>
+
+            <dt>
+                Tổng tiền:
+            </dt>
+
+            <dd>
+                @String.Format(info, "{0:0,0}", Model.TongTien) VND
+            </dd>
+
+            <dt>
+                Mã khách hàng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaKH)
+            </dd>
+
+            <dt>
+                Mã phiếu thuê phòng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaPhieuThuePhong)
+            </dd>
+
+            <dt>
+                Mã nhân viên:
+            </dt>
+
+            <dd>
+                @{
+                    if (Model.MaNV == null)
+                    {
+
+
+                        <p>Chưa xác nhận</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.MaNV)
+
+                    }
+                }
+            </dd>
+
+            <dt>
+                Trạng thái:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TrangThai)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Chỉnh Sửa Hóa Đơn", "ChinhSuaHoaDon", new { maHD = Model.MaHD }, new { @class = "btn btn-primary" })
+        <div class="mb-3">
+            <button type="button" class="btn btn-default" onclick="window.history.back();">Quay lại</button>
+        </div>
+    </p>
+</div>

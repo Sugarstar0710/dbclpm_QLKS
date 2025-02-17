@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "FailureView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid" style="height:50vh">
+    <div class="card container w-50 h-100 text-center d-flex">
+        <div style="padding:8%;">
+            <div class="fw-bold" style="font-size:30px">THANH TOÁN THẤT BẠI</div>
+            <div style="font-size:100px"><i class="fa-solid fa-circle-xmark" style="color: #da0b16;"></i></div>
+            <div class="fw-bold">Có một số vấn đề đã xảy ra!</div>
+            <div class="fw-bold">Vui lòng thử lại.</div>
+            <div class="fst-italic">(Kiểm tra kĩ thông tin thanh toán)</div>
+            <div><a class="btn btn-danger w-25 mt-2" href="@Url.Action("XemHoaDon","Account")">Xem Lịch Sử Giao Dịch</a></div>
+        </div>
+    </div>
+</div>
+

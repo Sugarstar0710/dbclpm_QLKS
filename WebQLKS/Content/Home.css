@@ -1,0 +1,67 @@
+﻿body {
+}
+
+.navbar-nav {
+    display: flex;
+    justify-items: flex-start;
+}
+
+.menu {
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+}
+
+.menu-left {
+    width: 50%;
+    max-height: 100%; /* Chiều cao tối đa của bảng */
+    overflow-y: auto; /* Cho phép cuộn theo chiều dọc khi nội dung vượt quá kích thước */
+    display: block; /* Đảm bảo bảng hiển thị như một khối để có thể sử dụng overflow-y */
+}
+
+.menu-right {
+    width: 50%;
+}
+
+.card-img {
+    width: 100%;
+    border: 1px solid gray;
+    height: 100%;
+}
+
+.menu-item {
+    margin-top: 10px;
+}
+
+.menu-content {
+    position: relative;
+    left: 5%;
+}
+
+#menu {
+    height: fit-content;
+}
+
+.location p{
+    display : inline-block;
+    padding-left: 15px;
+}
+.location > p {
+    font-family: "Playfair Display", "Times New Roman", Times, serif;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.footer {
+    background-color: black;
+}
+.img-footer{
+    border: solid 1px white;
+    border-radius:30px;
+    width:100%;
+    height:fit-content;
+}
+.img-footer>img{
+    width:100%;
+    object-fit:cover;
+}

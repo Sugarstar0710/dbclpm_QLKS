@@ -1,0 +1,61 @@
+﻿@model WebQLKS.Models.tbl_LoaiPhong
+
+@{
+    ViewBag.Title = "XoaLoaiPhong";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container card mt-3 w-75 text-center">
+    <h2>Xóa Loại Phòng</h2>
+
+    <h3 class="text-center">Bạn có chắc muốn xóa loại phòng này??</h3>
+    <div class="text-center">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Loại Phòng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenLoaiPhong)
+            </dd>
+
+            <dt>
+                Đơn Giá
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DonGia)
+            </dd>
+
+            <dt>
+                Mô Tả
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MoTa)
+            </dd>
+
+            <dt>
+                Hình Ảnh
+            </dt>
+
+            <dd>
+                <img src="~/Content/Home/Image/@Model.img" alt="Alternate Text" />
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm(@*"DeleteConfirmed", "QuanLyDV",FormMethod.Post*@))
+        {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.MaLoaiPhong)
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            <div>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Quay lại</button>
+        </div>
+    </div> 
+        }
+    </div>
+</div>

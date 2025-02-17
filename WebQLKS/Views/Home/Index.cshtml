@@ -1,0 +1,212 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_LoaiPhong>
+
+@{
+    ViewBag.Title = "Trang Chủ";
+    var dichVuList = ViewBag.tenMon as List<WebQLKS.Models.tbl_DichVu>;
+}
+<style>
+    .carousel-item img {
+        max-width: 100%;
+        height: 90vh;
+        object-fit: cover;
+    }
+
+    h6, .heading-6 {
+        font-family: "Montserrat", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    h1, h2, h3, h4, h5, h6, p {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-family: "Playfair Display", "Times New Roman", Times, serif;
+        font-weight: 400;
+    }
+
+    .line {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+    }
+
+    .row-img {
+        margin: 10px;
+        height: 250px;
+        max-width: 100%;
+    }
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    .card {
+        height: fit-content;
+        margin: 10px;
+    }
+
+    .row {
+        justify-content: space-evenly;
+    }
+
+    .menu-item__price {
+        color: #c19b76;
+    }
+
+    .menu-item__header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-left: 10px;
+        margin-right: -10px;
+    }
+
+    .Detail-btn {
+        width: fit-content;
+        position: relative;
+        left: 37%;
+        top: 30px;
+    }
+
+    .btn-custom {
+        background-color: cadetblue;
+    }
+
+        .btn-custom:hover {
+            background-color: lightblue;
+        }
+</style>
+<link href="~/Content/Home.css" rel="stylesheet">
+@if (TempData["LoginSuccess"] != null)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            alert('@Html.Raw(TempData["LoginSuccess"])');
+        });
+    </script>
+}
+@*Tạo slide show*@
+<div id="carouselExampleDark" class="carousel carousel-dark slide">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+            <img src="~/Content/Home/Image/image_bg.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="font-weight: bolder; color: white; background-color: rgb(0 0 0 / 0.50)">Huflit Hotel</h5>
+                <p style="font-weight: bold; color: white; background-color: rgb(0 0 0 / 0.50)">Nơi nghỉ dưỡng lý tưởng của mọi nhà.</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <img src="~/Content/Home/Image/spa.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="font-weight: bolder; color: white; background-color: rgb(0 0 0 / 0.50)">Dịch vụ Spa</h5>
+                <p style="font-weight: bold; color: white; background-color: rgb(0 0 0 / 0.50)">Đẹp hơn mỗi ngày.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="~/Content/Home/Image/NhaHang.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="font-weight: bolder; color: white; background-color: rgb(0 0 0 / 0.50)">Nhà hàng sang trọng</h5>
+                <p style="font-weight: bold; color: white; background-color: rgb(0 0 0 / 0.50)">Nhà hàng chuẩn 5 sao.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<hr />
+@*Hiển thị các dạng phòng*@
+<div class="container-fluid mt-3" style="height:fit-content">
+    <div class="row justify-content-lg-center" style="height:15%">
+        <div class="col-lg-10 col-xl-8" style="text-align:center">
+            <h6>Có nhiều phòng...</h6>
+            <h2>Sở hữu nhiều loại phòng</h2>
+            <p>
+                Huflix Hotel có 35 phòng cổ điển được trang bị nội thất trang nhã và máy lạnh, đây sẽ là lựa chọn hoàn hảo cho cả khách doanh nhân và khách du lịch...
+            </p>
+        </div>
+    </div>
+    <div class="container-fluid row mt-2 room-list overflow-x-auto" style="height:75%;flex-wrap:nowrap;">
+        @{
+            var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+            DateTime a = DateTime.Now.AddDays(3);
+
+        }
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-12 col-md-3 " style="width:60vh;height:100%;">
+                <div class="row-cols-md-12 row-img">
+                    <img src="~/Content/Home/Image/@item.img" />
+                </div>
+                <div class="mb-5 m-3">
+                    <h2 class="text-lg-center">@Html.DisplayFor(modelItem => item.TenLoaiPhong)</h2>
+                    <p class="line">
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </p>
+                    <div class="mt-3 fw-bold" style=" color: #c19b76; "><p class="d-flex justify-content-end text-uppercase fw-bold">Giá phòng: @String.Format(info, "{0:0,0}", item.DonGia) VND</p></div>
+                    <div class="position-relative top-50 start-50 translate-middle">
+                        <p class="d-flex mt-1 Detail-btn fw-bold" style="">
+                            @Html.ActionLink("Xem Chi Tiết", "DetailRoom", "Room", new { MaLoaiPhong = item.MaLoaiPhong }, new { @class = "btn btn-custom text-white fw-bold text-uppercase" })
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@*Hiển thị menu*@
+<div class="container-fluid mt-3" id="menu" @*style="background-color:lightyellow*@>
+    <hr />
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-10 col-xl-8" style="text-align:center">
+            <h6>Thực đơn đa dạng</h6>
+            <h2>Nhà Hàng Chuẩn 5 Sao</h2>
+            <p>
+                Hệ thống nhà hàng sang trọng chuẩn 5 sao - Với thực đơn đa dạng, phong phú
+            </p>
+            <hr />
+        </div>
+    </div>
+    <div class="col food-list">
+        <div class="menu">
+            <div class="menu-left">
+                <div class="col-md-10 menu-content">
+                    <ul class="menu-list">
+                        @foreach (var item in dichVuList)
+                        {
+                            <li class="menu-item">
+                                <div class="menu-item__header">
+                                    <h4>@item.TenDV</h4>
+                                    <h4 class="menu-item__price">@String.Format(info, "{0:0,0}", item.DonGia) VND</h4>
+                                </div>
+                                <div class="menu-item__main">
+                                    <p>@item.MoTa</p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="menu-right">
+                <div class="card-img">
+                    <img src="~/Content/Home/Image/high-angle-view-food-served-table_1048944-29292518.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>

@@ -1,0 +1,108 @@
+﻿@model WebQLKS.Models.tbl_KhachHang
+
+@{
+    ViewBag.Title = "RegisterKH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    <meta charset="UTF-8">
+}
+<style>
+    .field-validation-error {
+        color: red;
+    }
+
+    .background {
+        margin: 0px;
+        padding: 0px;
+        color: white;
+        height: 120vh;
+        background-image: url('/Content/Home/Image/image_bg.jpg');
+        background-size: cover;
+    }
+
+    .form-login {
+        display: grid;
+        place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
+        height: 100vh;
+        width: 100%;
+    }
+
+    .word-font {
+        color: white
+    }
+
+    .form-login > form {
+        border: 1px solid white;
+        width: fit-content;
+        padding: 5%;
+        border-radius: 30px;
+        background-color: rgba(14, 210, 199, 0.79) /* Xanh lam trong suốt 50% */;
+    }
+</style>
+<div class="container-fluid background">
+    @{
+        if (TempData["ErrorRegister"] != null)
+        {
+            <div class="alert alert-danger text-center">
+                @TempData["ErrorRegister"]
+            </div>
+            }
+            }
+            <div class="form-login">
+                @using (Html.BeginForm("RegisterKH", "LoginAcount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <form>
+                        <h1 class="h3 mb-3 fw-normal">ĐĂNG KÝ</h1>
+
+                        <div class="form-floating">
+                            <div><label for="Hoten">Họ và tên</label></div>
+                            <div>
+                                <input type="text" class="form-control" id="Hoten" name="Hoten" placeholder="Xin nhập họ và tên người dùng" required>
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            <div><label for="TaiKhoan">Tài khoản</label></div>
+                            <div><input type="text" class="form-control" id="TaiKhoan" name="TaiKhoan" placeholder="Xin nhập tên tài khoản" required></div>
+                        </div>
+                        <div class="form-floating">
+                            <div><label for="Email">Email</label></div>
+                            <div><input type="email" class="form-control" id="Email" name="Email" placeholder="example@gmail.com" required></div>
+                        </div>
+                        <div class="form-floating">
+                            <div><label for="SDT">Số điện thoại</label></div>
+                            <div><input type="text" class="form-control" id="SDT" name="SDT" placeholder="0123456789" required></div>
+                        </div>
+                        <div class="form-floating">
+                            <div><label for="CCCD">CCCD</label></div>
+                            <div><input type="text" class="form-control" id="CCCD" name="CCCD" placeholder="012345678901" required></div>
+                        </div>
+                        <div class="form-floating">
+                            <div><label for="DiaChi">Địa chỉ</label></div>
+                            <div><input type="text" class="form-control" id="DiaChi" name="DiaChi" placeholder="Sư Vạn Hạnh quận 10 tp HCM" required></div>
+                        </div>
+                        <div class="form-floating">
+                            <div><label for="NgaySinh">Ngày sinh</label></div>
+                            <input type="date" asp-for="NgaySinh" id="NgaySinh" name="NgaySinh" required />
+                        </div>
+                        <div class="form-floating">
+                            <div><label for="MatKhau">Mật khẩu</label></div>
+                            <div><input type="password" class="form-control" id="MatKhau" name="MatKhau" placeholder="example123" required></div>
+                        </div>
+                        <div class="form-floating">
+    <div><label for="ConfirmPass">Nhập lại mật khẩu</label></div>
+    <p>@Html.PasswordFor(Model=>Model.ConfirmPass)</p>
+    <p>@Html.ValidationMessageFor(Model=>Model.ConfirmPass)</p>
+</div>
+<div class="form-floating">
+    <div><label for="QuocTich">Quốc tịch</label></div>
+    <div><input type="text" class="form-control" id="QuocTich" name="QuocTich" placeholder="Việt Nam"></div>
+</div>
+                        <button class="btn btn-primary w-100 py-2" type="submit">Đăng ký</button>
+                        <div>Đã có tài khoản hãy đi đến <a class="word-font" href="/LoginAcount/LoginAcountKH">Đăng nhập</a></div>
+
+                    </form>
+                }
+            </div>
+        </div>

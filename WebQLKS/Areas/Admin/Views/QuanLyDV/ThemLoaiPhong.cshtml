@@ -1,0 +1,70 @@
+﻿@model WebQLKS.Models.tbl_LoaiPhong
+
+@{
+    ViewBag.Title = "Thêm Loại Phòng";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container card mt-3 w-75">
+    <h2>Thêm Loại Phòng</h2>
+
+    @using (Html.BeginForm("ThemLoaiPhong", "QuanLyDV", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Loại Phòng</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                Mã loại phòng
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MaLoaiPhong, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MaLoaiPhong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Tên loại phòng
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TenLoaiPhong, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TenLoaiPhong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Đơn giá
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DonGia, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                Mô tả
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", rows = 5 })
+                    @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.img, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="img" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.img, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Thêm mới" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+        }
+
+    <div>
+        <button type="button" class="btn btn-default" onclick="window.history.back();">Quay lại</button>
+    </div>
+</div>

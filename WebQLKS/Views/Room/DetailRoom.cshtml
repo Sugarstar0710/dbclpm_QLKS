@@ -1,0 +1,95 @@
+﻿@model WebQLKS.Models.RoomDetailViewModel
+
+@{
+    ViewBag.Title = "DetailRoom";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var LstHinhAnh = ViewBag.imgLoaiPhong as List<WebQLKS.Models.tbl_Phong>;
+}
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    DateTime a = DateTime.Now.AddDays(3);
+    bool isActive = true;
+
+}
+<style>
+    .btn-custom {
+        background-color: cadetblue;
+    }
+
+        .btn-custom:hover {
+            background-color: lightblue;
+        }
+</style>
+<link href="~/Content/Room.css" rel="stylesheet">
+@*Tạo slide show*@
+<div class="slide ">
+    <div id="carouselExampleCaptions" class="carousel slide " data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @for (var i = 0; i < LstHinhAnh.Count; i++)
+            {
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="@((i == 0) ? "active" : "")" aria-current="true" aria-label="Slide @(i + 1)"></button>
+            }
+        </div>
+        <div class="carousel-inner rounded-5">
+            @*<div class="carousel-item active">
+            <img src="https://www.hoteljob.vn/files/VB2-%E1%BA%A3nh%20HTJ/cac-loai-phong-trong-khach-san-1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+        </div>*@
+            @foreach (var item in LstHinhAnh)
+            {
+                <div class="carousel-item @(isActive ? "active" : "")">
+                    <img src="~/Content/Room/img/@item.HinhAnh" class="d-block w-100 card-img" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>@Html.DisplayFor(model => model.tenPhong)</h2>
+                        <h4>Giá chỉ từ</h4>
+                        <div class="price">
+                            <span class="price__aside-top"></span>
+                            <span class="price__main">@String.Format(info, "{0:0,0}", Model.donGia) VND</span>
+                            <span class="price__aside-bottom">/ngày</span>
+                        </div>
+                    </div>
+                </div>
+                isActive = false;
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<div class="container Description p-2 w-50">
+    <div class="des-title">
+        <h2>Mô tả</h2>
+    </div>
+    <div class="des-content">
+        <div class="MoTa">
+            @Html.DisplayFor(Model => Model.MoTa)
+        </div>
+    </div>
+    <div class="des-title">
+        <h2>Tiện ích</h2>
+    </div>
+    <div class="des-content">
+        <div class="MoTa">
+            <ul class="d-flex row flex-wrap">
+                @foreach (var tienIch in Model.TienIch)
+                 {
+                    <li class="d-flex col-md-4 col-lg-3 m-3 list-unstyled"><div><i class="fa-solid fa-circle-check" style="color: #0cb8bb;"></i></div>   <div class="ms-2"> @tienIch</div></li>
+                 }
+            </ul>
+        </div>
+    </div>
+    <div class="button">
+        <form action="@Url.Action("TimPhong", "Room")" method="get" style="display:inline;">
+            <input type="hidden" name="MaLoaiPhong" value="@Model.maPhong" />
+            <button type="submit" class="btn btn-custom text-light">ĐẶT PHÒNG</button>
+        </form>
+    </div>
+</div>
+

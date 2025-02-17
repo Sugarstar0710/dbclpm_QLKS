@@ -1,0 +1,126 @@
+﻿@model WebQLKS.Models.tbl_KhachHang
+
+@{
+    ViewBag.Title = "XoaKH";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<style>
+    .background {
+        color: white;
+        background-image: url('/Content/Home/Image/5fc0c12e9e3ce90ca6d0a794c911d8ea.jpg');
+        height: 100%;
+        background-size: cover;
+    }
+
+    .profile-container {
+        width: 30%;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+</style>
+<div class="container-fluid background">
+    <h2 class="text-center">XÓA KHÁCH HÀNG</h2>
+
+    <h3 class="text-center">Bạn có muốn xóa khách hàng này không?</h3>
+    <div>
+        <div class="profile-container" style="place-items:center">
+            <dl class="dl-horizontal">
+                <dt>
+                    Họ Và Tên Khách Hàng
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HoTen)
+                </dd>
+
+                <dt>
+                    Tài Khoản
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TaiKhoan)
+                </dd>
+
+                <dt>
+                    Mật Khẩu
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MatKhau)
+                </dd>
+
+                <dt>
+                    Email
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    Số Điện Thoại
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SDT)
+                </dd>
+
+                <dt>
+                    Ngày Sinh
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NgaySinh)
+                </dd>
+
+                <dt>
+                    Căn Cước Công Dân
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CCCD)
+                </dd>
+
+                <dt>
+                    Địa Chỉ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DiaChi)
+                </dd>
+
+                <dt>
+                    Quốc Tịch
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.QuocTich)
+                </dd>
+
+                <dt>
+                    Khách Hàng
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbl_LoaiKhach.TenLoaiKH)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="position">
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    @Html.ActionLink("Quay lại", "DanhSachKH",null, new { @class = "btn btn-info text-light" })
+                </div>
+            }
+            
+        </div>
+</div>
+</div>

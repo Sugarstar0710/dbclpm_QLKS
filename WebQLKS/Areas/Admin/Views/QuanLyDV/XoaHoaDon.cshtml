@@ -1,0 +1,90 @@
+﻿@model WebQLKS.Models.tbl_HoaDon
+
+@{
+    ViewBag.Title = "XoaHoaDon";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container mt-3 w-75 text-center card">
+    <h2>Xóa Hóa Đơn</h2>
+
+    <h3>Bạn có chắc muốn xóa hóa đơn này?</h3>
+    <div>
+        <h4>@Model.MaHD</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Ngày thanh toán:
+            </dt>
+
+            <dd>
+                @{
+                    if (Model.NgayThanhToan == null)
+                    {
+
+
+                        <div>Chưa thanh toán</div>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.NgayThanhToan)
+                    }
+                }
+
+            </dd>
+
+            <dt>
+                Tổng tiền:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TongTien)
+            </dd>
+
+            <dt>
+                Trạng thái:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TrangThai)
+            </dd>
+
+            <dt>
+                Mã Phòng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_PhieuThuePhong.MaPhong)
+            </dd>
+
+            <dt>
+                Họ tên khách hàng:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_KhachHang.HoTen)
+            </dd>
+
+            <dt>
+                Nhân viên lập hóa đơn:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_NhanVien.HoTen)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa Hóa Đơn" class="btn btn-danger" />
+                <div>
+                    <button type="button" class="btn btn-outline-secondary m-2" onclick="history.back();">Quay lại</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

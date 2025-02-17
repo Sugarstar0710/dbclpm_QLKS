@@ -1,0 +1,82 @@
+﻿@model WebQLKS.Models.tbl_DichVu
+
+@{
+    ViewBag.Title = "ChiTietMon";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<style>
+    dd > img {
+        width: 50%;
+        height: 50%;
+        object-fit: cover;
+    }
+</style>
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    DateTime a = DateTime.Now.AddDays(3);
+
+}
+<div class="container card w-75 mt-3 text-center">
+    <h2 class="text-center">Chi Tiết Món</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Tên món
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenDV)
+            </dd>
+
+            <dt>
+                Đơn giá:
+            </dt>
+
+            <dd>
+                @String.Format(info, "{0:0,0}", Model.DonGia) VND
+            </dd>
+
+            <dt>
+                Hình Ảnh
+            </dt>
+
+            <dd>
+                @{
+                    if (Model.img != null)
+                    {
+                        <img src="~/Content/Service/menu/@Model.img" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/Home/Image/empty.jpg" />
+                    }
+                }
+            </dd>
+
+            <dt>
+                Mô tả:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MoTa)
+            </dd>
+
+            <dt>
+                Loại dịch vụ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_LoaiDichVu.TenLoaiDV)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Chỉnh sửa món", "SuaMon", new { maDV = Model.MaDV }, new { @class = "btn btn-success" })
+        <div>
+            <button type="button" class="btn btn-default" onclick="history.back();">Quay lại</button>
+        </div>
+    </p>
+</div>

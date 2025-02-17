@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_LoaiPhong>
+
+@{
+    ViewBag.Title = "Danh Mục Phòng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lstTienIch = ViewBag.TienIch as Dictionary<string, List<string>>;
+}
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    DateTime a = DateTime.Now.AddDays(3);
+
+}
+
+<link href="~/Content/Room/Category.css" rel="stylesheet" />
+<div class="container-fluid cate-container">
+    <div class="container-fuild cate-banner">
+        <div class="container-fluid cate-banner-trans">
+            <div class="cate-banner-content">
+                <h3 class="cate-banner-title">Sở hữu nhiều phòng...</h3>
+                <h4 class="cate-banner-title-text">Đa dạng các loại phòng</h4>
+                <div class="cate-banner-text">Mặc dù khách sạn của chúng tôi có một bộ loại phòng tiêu chuẩn nhưng hoàn toàn không có tiêu chuẩn nào về chúng cả! Mỗi phòng đơn, phòng đôi hoặc phòng gia đình, mỗi suite chúng tôi cung cấp đều được cải tiến với một chút bổ sung riêng! Nội thất và ngoại thất phức tạp và trang nhã nhưng đồng thời tiện nghi của khách sạn sẽ khiến kỳ nghỉ của bạn ở đây trở nên thật tuyệt vời! Ngoài ra, tất cả các tiện nghi mà chúng tôi có, WiFI trên toàn khách sạn và các địa điểm ăn uống tuyệt vời của chúng tôi sẽ là những điểm nổi bật hàng đầu!</div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid cate-list">
+        @foreach (var cate in Model)
+        {
+            <div class="card cate-item">
+                <div class="cate-img">
+                    <div class="cate-img-item">
+                        <img src="~/Content/Home/Image/@cate.img" />
+                    </div>
+                </div>
+                <div class="cate-content">
+                    <div class="cate-text">
+                        <div class="cate-tile">
+                            @cate.TenLoaiPhong
+                        </div>
+                        <div class="cate-desc">
+                            @cate.MoTa
+                        </div>
+                        <div class="cate-price">
+                            <div class="cate-price-title">
+                                Giá Phòng:
+                            </div>
+                            @String.Format(info, "{0:0,0}", cate.DonGia) VND/Ngày
+                        </div>
+                        <div class="cate-detail">
+                            @foreach (var tienIch in lstTienIch[cate.MaLoaiPhong])
+                            {
+                                <p class="col-md-4 col-lg-3 m-3"><i class="fa-solid fa-fire"></i> @tienIch </p>
+                            }
+                        </div>
+                        <div class="cate-btn">
+                            @Html.ActionLink("Xem Chi Tiết", "DetailRoom", "Room", new { MaLoaiPhong = cate.MaLoaiPhong }, new { @class = "btn btn-success", style = "width:40%;height:50%;margin-top:5%;font-weight:bold;font-size:20px;padding:10px" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

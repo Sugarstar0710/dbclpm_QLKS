@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - QLKS</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="icon" href="~/Content/Home/Image/favicon (3).ico" type="image/x-icon">
+    <link rel="shortcut icon" href="~/Content/Home/Image/favicon (3).ico" type="image/x-icon">
+    <link href="~/Content/Home.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/331feb0958.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div>
+        <header class="index-header">
+            <div class="location">
+                <p>816 Sư Vạn Hạnh P14 Q10 TPHCM </p>
+                <p>Liên hệ chúng tôi : 0933838277</p>
+            </div>
+            <div class="navbar navbar-expand-lg bg-body-tertiary navbar-fixed-top" id="navbar-1">
+                <div class="container-fluid">
+                    <a class="navbar-brand" style="width:100px;height:100px;position:relative;left:10%" href="@Url.Action("Index", "Home")"><img style="object-fit:cover" class="w-100 h-100" src="~/Content/Home/Image/logo_1-removebg-preview.png" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-5 mb-0 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Home")">TRANG CHỦ</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link active" href="@Url.Action("Index","Service")" role="button" aria-expanded="true">DỊCH VỤ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("CategoryRoom","Room")">PHÒNG</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" aria-disabled="true">QUẦYBAR VÀ ĂNTỐI </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" aria-disabled="true">TIỆN NGHI </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" aria-disabled="true">BLOG </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" aria-disabled="true">LIÊN HỆ</a>
+                            </li>
+                        </ul>
+                        <div class="nav-item dropdown d-flex align-content-end">
+                            @{
+                                if (Session["KH"] != null)
+                                {
+                                    string makh = Session["KH"].ToString();
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        TÀI KHOẢN
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li>@Html.ActionLink("Lịch sử dịch vụ", "historyService", "Account", null, new { @class = "dropdown-item" })</li>
+                                        <li>@Html.ActionLink("Phiếu đặt phòng", "historyOrdRoom", "Account", null, new { @class = "dropdown-item" })</li>
+                                        <li>@Html.ActionLink("Xem hóa đơn", "XemHoaDon", "Account", null, new { @class = "dropdown-item" })</li>
+                                        <li>@Html.ActionLink("Thông tin cá nhân", "UserInfor", "Account", null, new { @class = "dropdown-item" })</li>
+                                        <li><a class="dropdown-item" onclick="return confirm('Bạn có thực sự muốn đăng xuất ?');" href="@Url.Action("Logout", "Account")">Đăng xuất</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        KHÁCH HÀNG
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li>@Html.ActionLink("Đăng nhập", "LoginAcountKH", "LoginAcount", null, new { @class = "dropdown-item" })</li>
+                                        <li>@Html.ActionLink("Đăng ký", "RegisterKH", "LoginAcount", null, new { @class = "dropdown-item" })</li>
+                                    </ul>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="container-fluid body-content content">
+            @RenderBody()
+        </main>
+        <div class="container-fluid mt-0 bg-dark" style="color:white">
+            <footer class="mt-auto py-2 ">
+                <div class="row mt-3">
+                    <div class="col-6 col-md-2 mb-3 text-center">
+                        <h5><b>HUFLIT</b> <br />BEST HOTEL</h5>
+                        <div class="img-footer mt-2">
+                            <img src="~/Content/Home/Image/logo_1-removebg-preview.png" alt="Alternate Text" />
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-2 ps-5 mb-3">
+                        <h5 class="fw-bold">NHÓM 3 <br />QLKS</h5>
+                        <ul class="nav flex-column mt-2">
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Liêu Trương Gia Huy MSSV:20DH111441</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Trịnh Hữu Gia Bảo MSSV:22DH110327</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Bùi Hoàng Chương MSSV:22DH110424</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Lê Võ Nhật Huy MSSV:22DH111242</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Lê Gia Bảo <br /> MSSV:22DH110244</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md-2 mb-3 mt-4">
+                        <h5 class="fw-bold">LIÊN HỆ</h5>
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">828 Sư Vạn Hạnh, Phường 14, Quận 10,TP HCM,Việt Nam</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Số điện thoại liên lạc: 09338380684</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Nhom03@gmail.com</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-5 mb-3">
+                        <div class="rounded-4" id="map" style="height: 500px; width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-between border-top">
+                    <p style="text-align:center">© 2024 Huflit, Inc. All rights reserved.</p>
+                    <ul class="list-unstyled d-flex">
+                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJKlSX0lQKufoBwYpbBKUKir5h45amcFM&callback=initMap"></script>
+    <script>
+        function initMap() {
+            // Tọa độ để trung tâm bản đồ
+            var myLatLng = { lat: 10.776101071657394, lng: 106.66735983035177 };
+
+            // Tạo bản đồ và đặt tọa độ
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 19,
+                center: myLatLng
+            });
+
+            // Tạo một marker và đặt nó lên bản đồ
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Huflit'
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿@model WebQLKS.Models.tbl_PhieuThuePhong
+
+@{
+    ViewBag.Title = "DatPhong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card w-50">
+    <h2 class="text-center">Đặt phòng</h2>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+        <script type="text/javascript">
+            setTimeout(function() {
+                window.location.href = '@Url.Action("historyOrdRoom", "Account")';
+            }, 2000); // Chuyển trang sau 3 giây
+        </script>
+    }
+    else if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    @using (Html.BeginForm("DatPhong", "Room", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal d-flex flex-column">
+            <h4 class="text-center">Mời nhập số lượng người</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group text-center">
+                Số lượng khách
+                <div class="col d-flex justify-content-center">
+                    <input type="number" class="form-control " id="SLK" name="SLK" required />
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                Số lượng khách nước ngoài
+                <div class="col d-flex justify-content-center">
+                    <input type="number" class="form-control" id="SLNN" name="SLNN" required />
+                </div>
+            </div>
+            <input type="hidden" id="maPhong" name="maPhong" value="@ViewBag.MP" />
+
+            <div class="form-group mt-2 text-center">
+                <div class="col-md-offset-2 col">
+                    <input type="submit" value="Đặt Phòng" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="text-center m-2">
+        <button type="button" class="btn btn-outline-secondary text-center" onclick="history.back();">Quay lại</button>
+    </div>
+</div>

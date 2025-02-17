@@ -1,0 +1,125 @@
+﻿@model WebQLKS.Models.tbl_NhanVien
+
+@{
+    ViewBag.Title = "EditNV";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .background {
+        color: white;
+        border: 1px solid black;
+        height: 90vh;
+        background-image: url('/Content/Home/Image/5fc0c12e9e3ce90ca6d0a794c911d8ea.jpg');
+        background-size: cover;
+    }
+
+    .edit-container {
+        width: 20%;
+        margin: 0 auto;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+
+    .profile-details p {
+        margin: 10px 0;
+    }
+
+    .profile-details strong {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .picture {
+        margin: auto;
+    }
+</style>
+<div class="container-fluid background">
+    <h2 class="profile-header">CHỈNH SỬA TRANG THÔNG TIN</h2>
+
+    @using (Html.BeginForm("EditNV", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+<div class="edit-container"style="width:40vh">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaNV)
+
+    <div class="form-group">
+        <div><label>Họ và tên</label></div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <input type="hidden" id="TaiKhoan" name="TaiKhoan" value="@Model.TaiKhoan" />
+
+    <div class="form-group">
+        <div><label>Mật khẩu</label></div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div><label>Email</label></div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div><label>Ngày sinh</label></div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <input type="hidden" id="MaCV" name="MaCV" value="@Model.MaCV" />
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.MaCV, "MaCV", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(Model => Model.MaCV, ViewBag.MaCV as SelectList, "Chức vụ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaCV, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+
+            <button class="btn btn-primary w-100 py-2" type="submit" style="margin-top:10px" value="Save">Lưu thông tin</button>
+        </div>
+    </div>
+</div>
+    }
+
+    <div class="m-5 position-absolute bottom-0 end-0">
+        @Html.ActionLink("Quay lại", "TrangNhanVien",null, new { @class = "btn btn-warning text-white" })
+    </div>
+</div>

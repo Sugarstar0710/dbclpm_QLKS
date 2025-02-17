@@ -1,0 +1,83 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_DichVuDaDat>
+
+@{
+    ViewBag.Title = "LichDonDep";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container w-75 card mt-3">
+    <h2 class="text-center fw-bold text-uppercase">Lịch Dọn Dẹp</h2>
+    <table class="table text-center">
+        <tr>
+            <th>
+                Thời gian
+            </th>
+            <th>
+                Tên dịch vụ
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Mã khách hàng
+            </th>
+            <th>
+                Người sử dụng dịch vụ
+            </th>
+            <th>
+                Người thực hiện dịch vụ
+            </th>
+            <th></th>
+        </tr>
+        @{
+            if (!Model.Any())
+            {
+                <tr style="">
+                    <td colspan="7" class="text-center mt-auto">
+                        <div style="height:200px;margin-top:20%">Hiện chưa có lịch hẹn</div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgaySuDungDV)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbl_DichVu.TenDV)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbl_TrangThaiDichVu.TenTrangThai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbl_HoaDon.MaKH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbl_KhachHang.HoTen)
+                        </td>
+                        <td>
+                            @{
+                                if (item.MaNV == null)
+                                {
+                                    <div>Chưa xác nhận</div>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.tbl_NhanVien.HoTen)
+                                }
+                            }
+                        </td>
+                        <td class="d-flex h-100 border-0">
+                                @Html.ActionLink("Sửa", "SuaLichDon", new { id = item.ID }, new { @class = "btn btn-success" }) |
+                                @Html.ActionLink("Xem", "ChiTietLichDon", new { id = item.ID }, new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Hủy", "XoaLichDon", new { id = item.ID }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+</div>

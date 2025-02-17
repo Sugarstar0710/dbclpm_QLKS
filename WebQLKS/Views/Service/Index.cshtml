@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_LoaiDichVu>
+
+@{
+    ViewBag.Title = "Dịch Vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .ser-img:hover {
+        transform: scale(1.1);
+    }
+</style>
+<link href="~/Content/Service/LoaiDV.css" rel="stylesheet" />
+<div class="container-fluid ser-main">
+    <div class="container-fluid banner">
+
+    </div>
+    <div class="service-content">
+        <div class="serviceList-title">
+            <hr />
+            CÁC DỊCH VỤ TIỆN ÍCH
+        </div>
+        <div class="serLst-des">
+            <hr />
+            Chúng tôi muốn kỳ nghỉ của bạn tại khách sạn sang trọng của chúng tôi thực sự khó quên.  Đó là lý do tại sao chúng tôi đặc biệt quan tâm đến mọi nhu cầu của bạn.
+            rằng chúng tôi có thể đảm bảo một trải nghiệm khá độc đáo. Khách sạn sang trọng mang đến khung cảnh hoàn hảo với cảnh quan tuyệt đẹp để thư giãn
+            và các tiện ích nghỉ dưỡng sang trọng hiện đại của chúng tôi sẽ giúp bạn tận hưởng những điều tuyệt vời nhất.
+        </div>
+        <div class="ser-List">
+            @foreach (var item in Model)
+            {
+                <div class="ser-item">
+                    <a class="ser-img" href="@Url.Action("chiTietLoaiDV", new { maLoaiDV = item.MaLoaiDV })">
+                        <img class=" rounded-3" src="~/Content/Service/img/@item.img" />
+                    </a>
+                    <div class="ser-name">
+                        @Html.ActionLink(item.TenLoaiDV, "chiTietLoaiDV", new { maLoaiDV = item.MaLoaiDV })
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="testimonial">
+            <p><b>Testimonial</b><br />Bình tĩnh,thanh thản,cổ điển-một nơi tuyệt vời để thưởng thức và thư giản<br />gia đình nhà baxter ở anh</p>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,78 @@
+﻿@model WebQLKS.Models.tbl_DichVu
+
+@{
+    ViewBag.Title = "ThemDonDep";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="container card w-75 mt-3">
+    <h2>Thêm mới dịch vụ</h2>
+
+    @using (Html.BeginForm("ThemDonDep", "QuanLyDV", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Vệ sinh</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        Mã dịch vụ:
+                        <div class="col-md-10">
+                            <input type="text" id="MaDV" name="MaDV" value="@ViewBag.maDV" disabled />
+                            @Html.ValidationMessageFor(model => model.MaDV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        Tên dịch vụ:
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.TenDV, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenDV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        Đơn giá:
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DonGia, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        Mã loại dịch vụ
+                        <div class="col-md-10">
+                            <input type="text" id="MaLoaiDV" name="MaLoaiDV" value="DV01" disabled />
+                            @Html.ValidationMessageFor(model => model.MaLoaiDV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        Hình ảnh:
+                        <div class="col-md-10">
+                            <input type="file" name="img" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.img, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        Mô tả
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", rows = 5 })
+                            @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Thêm mới" class="btn btn-success" />
+                        </div>
+                    </div>
+            </div>
+    }
+
+    <div>
+        <button type="button" class="btn btn-default" onclick="history.back();">Quay lại</button>
+    </div>
+</div>

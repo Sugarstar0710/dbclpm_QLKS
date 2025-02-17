@@ -1,0 +1,129 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_HoaDon>
+
+@{
+    ViewBag.Title = "XemHoaDon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    DateTime a = DateTime.Now.AddDays(3);
+
+}
+<style>
+    .scrollable-table {
+        max-height: 70vh; /* Chiều cao tối đa của bảng */
+        height: 70vh;
+        overflow-y: auto; /* Cho phép cuộn theo chiều dọc khi nội dung vượt quá kích thước */
+        display: block; /* Đảm bảo bảng hiển thị như một khối để có thể sử dụng overflow-y */
+    }
+    .noline {
+        white-space: nowrap;
+    }
+</style>
+<div class="card mt-3 container scrollable-table">
+    <h2 class="text-center fw-bold text-uppercase">Danh Sách Hóa Đơn</h2>
+    <div class="">
+        <table class="table text-center">
+            <tr>
+                <th>
+                    Mã Hóa Đơn
+                </th>
+                <th>
+                    Ngày Thanh Toán
+                </th>
+                <th>
+                    Tổng Tiền
+                </th>
+                <th>
+                    Mã Khách Hàng
+                </th>
+                <th>
+                    Phòng
+                </th>
+                <th>
+                    Mã Nhân Viên
+                </th>
+                <th>
+                    Trạng Thái
+                </th>
+                <th></th>
+            </tr>
+
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="7" class="text-center mt-auto">
+                        <div style="height:50vh;margin-top:20%">Hiện chưa có hóa đơn nào</div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaHD)
+                        </td>
+                        <td>
+                            @{
+                                if (item.NgayThanhToan == null)
+                                {
+
+
+                                    <div>Chưa thanh toán</div>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.NgayThanhToan)
+
+                                }
+                            }
+                        </td>
+                        <td>
+                            @String.Format(info, "{0:0,0}", item.TongTien) VND
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaKH)
+                        </td>
+                        <td>
+                            @{
+                                if (item.MaPhieuThuePhong==null)
+                                {
+                                    <div>Dịch Vụ</div>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.tbl_PhieuThuePhong.MaPhong)
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaNV)
+                        </td>
+                        <td>
+                            @if (item.TrangThai == "Đã thanh toán")
+                            {
+                                <div class="badge text-bg-success noline text-wrap">@Html.DisplayFor(modelItem => item.TrangThai)</div>
+                            }
+                            else if (item.TrangThai == "Đã hủy")
+                            {
+                                <div class="badge text-bg-danger noline text-wrap">@Html.DisplayFor(modelItem => item.TrangThai)</div>
+                            }
+                            else if (item.TrangThai == "Chưa thanh toán")
+                            {
+                                <div class="badge text-bg-warning noline text-wrap">@Html.DisplayFor(modelItem => item.TrangThai)</div>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                @Html.ActionLink("Xem chi tiết", "ChiTietHoaDon", new { maHD = item.MaHD }, new { @class = "btn btn-info text-white" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+    </div>
+</div>

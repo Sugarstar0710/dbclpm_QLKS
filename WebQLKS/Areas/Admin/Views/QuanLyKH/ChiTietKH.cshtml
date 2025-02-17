@@ -1,0 +1,86 @@
+﻿@model WebQLKS.Models.tbl_KhachHang
+
+@{
+    ViewBag.Title = "ChiTietKH";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+    <meta charset="UTF-8">
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .profile-container {
+        width: 50%;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+
+    .profile-details p {
+        margin: 10px 0;
+    }
+
+    .profile-details strong {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .picture {
+        margin: auto;
+    }
+
+    .background {
+        color: white;
+        height: 100%;
+        background-image: url('/Content/Home/Image/5fc0c12e9e3ce90ca6d0a794c911d8ea.jpg');
+        background-size: cover;
+    }
+</style>
+<div class="container-fluid background">
+    <h2 style="text-align:center">Thông tin khách hàng</h2>
+    <div>
+        <div>
+            <div class="profile-container">
+                <div class="profile-header">
+                    <img src="~/Content/Home/Image/image_bg.jpg" alt="Profile Picture" class="profile-pic">
+                    <h1> @Html.DisplayFor(model => model.HoTen)</h1>
+                </div>
+                <div class="profile-details">
+                    <p><strong style="width:200px">Mã Khách hàng:</strong>@Html.DisplayFor(Model => Model.MaKH)</p>
+                    <p><strong style="width:200px">Tài khoản người dùng:</strong>@Html.DisplayFor(Model => Model.TaiKhoan)</p>
+                    <p><strong style="width:200px">Email:</strong>@Html.DisplayFor(Model => Model.Email)</p>
+                    <p><strong style="width:200px">Ngày sinh:</strong>@Html.DisplayFor(Model => Model.NgaySinh)</p>
+                    <p><strong style="width:200px">Căn cước công dân:</strong>@Html.DisplayFor(Model => Model.CCCD)</p>
+                    <p><strong style="width:200px">Địa chỉ:</strong>@Html.DisplayFor(Model => Model.DiaChi)</p>
+                    <p><strong style="width:200px">Quốc tịch:</strong>@Html.DisplayFor(Model => Model.QuocTich)</p>
+                    <p><strong style="width:200px">Khách hàng:</strong>@Html.DisplayFor(Model => Model.tbl_LoaiKhach.TenLoaiKH)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-5 position-absolute bottom-0 end-0">
+        <p>
+            @Html.ActionLink("Back to List", "DanhSachKH",null, new { @class = "btn btn-info" })
+        </p>
+    </div>
+</div>

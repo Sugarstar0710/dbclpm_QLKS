@@ -1,0 +1,78 @@
+﻿@model WebQLKS.Models.tbl_NhanVien
+
+@{
+    ViewBag.Title = "ThemNhanVien";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+    var chucvu = ViewBag.MaCV as SelectList;
+    <meta charset="utf-8" />
+}
+<style>
+    .field-validation-error {
+        color: red;
+    }
+
+    .background {
+        color: white;
+        height: 100%;
+        background-image: url('/Content/Home/Image/5fc0c12e9e3ce90ca6d0a794c911d8ea.jpg');
+        background-size: cover;
+    }
+
+    .form-login {
+        
+        display: grid;
+        place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
+        height: 90vh;
+        width: 100%;
+    }
+
+    .word-font {
+        color: white
+    }
+
+    .form-floating {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="container-fluid background">
+    <div class="form-login">
+        @using (Html.BeginForm("ThemNhanVien", "QuanLyNS", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <form>
+
+                <h1 class="h3 mb-3 fw-normal">THÊM NHÂN VIÊN</h1>
+
+                <div class="form-floating">
+                    <div><label for="Hoten">Họ và tên</label></div>
+                    <div>
+                        <input type="text" class="form-control" id="Hoten" name="Hoten" placeholder="Xin nhập họ và tên nhân viên">
+                    </div>
+                </div>
+                <div class="form-floating">
+                    <div><label for="TaiKhoan">Tài khoản</label></div>
+                    <div><input type="text" class="form-control" id="TaiKhoan" name="TaiKhoan" placeholder="Xin nhập tên tài khoản"></div>
+                </div>
+                <div class="form-floating">
+                    <div><label for="Email">Email</label></div>
+                    <div><input type="email" class="form-control" id="Email" name="Email" placeholder="example@gmail.com"></div>
+                </div>
+                <div class="form-floating">
+                    <div><label for="NgaySinh">Ngày sinh</label></div>
+                    <input type="date" asp-for="NgaySinh" id="NgaySinh" name="NgaySinh" />
+                </div>
+                <div class="form-floating">
+                    <div><label for="MatKhau">Mật khẩu</label></div>
+                    <div><input type="password" class="form-control" id="MatKhau" name="MatKhau" placeholder="example123"></div>
+                </div>
+                <div><label>Chức vụ</label></div>
+                <div>
+                    @Html.DropDownListFor(Model => Model.MaCV, chucvu as SelectList, "Chức vụ", new { @class = "form-control" })
+                </div>
+                <hr />
+                <button class="btn btn-primary w-100 py-2" type="submit">Tạo</button>
+            </form>
+        }
+    </div>
+</div>

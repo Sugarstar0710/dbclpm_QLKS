@@ -1,0 +1,88 @@
+﻿@model WebQLKS.Models.tbl_NhanVien
+
+@{
+    ViewBag.Title = "XoaNV";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+    <meta charset="utf-8" />
+}
+<style>
+    .background{
+        color:white;
+        background-image: url('/Content/Home/Image/5fc0c12e9e3ce90ca6d0a794c911d8ea.jpg');
+        height:100%;
+        background-size:cover;
+    }
+    .profile-container {
+        width: 30%;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+</style>
+<div class="container-fluid background">
+    <h2 class="text-center">XÓA NHÂN VIÊN</h2>
+
+    <h3 class="text-center">Bạn có muốn xóa nhân viên này không?</h3>
+    <div>
+
+        <div class="profile-container" style="place-items:center">
+            <dl class="dl-horizontal">
+                <dt>
+                    Họ Tên Nhân Viên
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HoTen)
+                </dd>
+
+                <dt>
+                    Tài Khoản
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TaiKhoan)
+                </dd>
+
+                <dt>
+                    Mật Khẩu
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MatKhau)
+                </dd>
+
+                <dt>
+                    Email
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    Ngày Sinh
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NgaySinh)
+                </dd>
+
+                <dt>
+                    Chức Vụ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbl_ChucVu.TenChucVu)
+                </dd>
+                
+            </dl>
+            <div class=" position">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                @Html.ActionLink("Quay lại", "DanhSachNV", null, new { @class = "btn btn-info text-light" })
+            </div>
+        </div>       
+    </div>
+</div>

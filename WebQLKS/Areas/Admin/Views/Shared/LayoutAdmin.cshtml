@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="icon" href="~/Content/Home/Image/favicon (3).ico" type="image/x-icon">
+    <link rel="shortcut icon" href="~/Content/Home/Image/favicon (3).ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/331feb0958.js" crossorigin="anonymous"></script>
+    <style>
+        #main {
+            height: 90vh;
+            display: flex;
+            flex-direction: row;
+            padding: 0;
+        }
+
+        .scrollable-table {
+            max-height: 100vh; /* Chiều cao tối đa của bảng */
+            overflow-y: auto; /* Cho phép cuộn theo chiều dọc khi nội dung vượt quá kích thước */
+            display: block; /* Đảm bảo bảng hiển thị như một khối để có thể sử dụng overflow-y */
+        }
+    </style>
+</head>
+
+<body class="fixed-nav sticky-footer">
+    <nav class="navbar navbar-expand-lg bg-black" style="height:10vh">
+        <a class="navbar-brand" style="height:100%;width:100px; margin-left:5%" href="#"><img style="height:100%;width:100%;object-fit:cover" src="~/Content/Home/Image/HUFLIT (2).png" /></a>
+    </nav>
+    <div class="container-fluid" id="main">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 20%">
+
+            @{
+                WebQLKS.Models.tbl_NhanVien nvSession = (WebQLKS.Models.tbl_NhanVien)Session["user"];
+                if (nvSession == null)
+                {
+                    <script type="text/javascript">
+                        window.location.href = '@Url.Action("Login", "Admin")';
+                    </script>
+                }
+                else
+                {
+                    if (nvSession.MaCV == "QLDV")
+                    {
+                        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                            <span class="fs-4 m-2 text-warning text-uppercase fw-bolder">@nvSession.tbl_ChucVu.TenChucVu</span>
+                        </a>
+                        <hr class="text-warning">
+                        <ul class="nav nav-pills flex-column mb-auto">
+                            <li class="nav-item">
+                                <a href="@Url.Action("DanhSachPhong","QuanLyDV")" class="nav-link @(ViewBag.Current == "DanhSachPhong" ? "active bg-warning" : "text-white")" aria-current="page">
+                                    Danh Sách Phòng
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("DanhMucPhong","QuanLyDV")" class="nav-link @(ViewBag.Current == "DanhMucPhong" ? "active bg-warning" : "text-white")">
+                                    Danh Mục Phòng
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ThucDon","QuanLyDV")" class="nav-link @(ViewBag.Current == "ThucDon" ? "active bg-warning" : "text-white")">
+                                    Thực đơn
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Spa","QuanLyDV")" class="nav-link @(ViewBag.Current == "Spa" ? "active bg-warning" : "text-white")">
+                                    Spa
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("DonDep","QuanLyDV")" class="nav-link @(ViewBag.Current == "Dondep" ? "active bg-warning" : "text-white")">
+                                    Dọn dẹp
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("HoaDon","QuanLyDV")" class="nav-link @(ViewBag.Current == "HoaDon" ? "active bg-warning" : "text-white")">
+                                    Danh sách hóa đơn
+                                </a>
+                            </li>
+                            <li class="fw-bolder text-uppercase text-warning fs-4">
+                                <hr />
+                                DANH SÁCH YÊU CẦU
+                            </li>
+                            <li>
+                                <a href="@Url.Action("LstRoomOrder","QuanLyDV")" class="nav-link @(ViewBag.Current == "LstRoomOrder" ? "active bg-warning" : "text-white")">
+                                    Danh sách thuê phòng
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("DanhSachDatDoAn","QuanLyDV")" class="nav-link @(ViewBag.Current == "DanhSachDatDoAn" ? "active bg-warning" : "text-white")">
+                                    Đơn hàng đồ ăn
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("LichSpa","QuanLyDV")" class="nav-link @(ViewBag.Current == "LichSpa" ? "active bg-warning" : "text-white")">
+                                    Lịch hẹn spa
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("LichDonDep","QuanLyDV")" class="nav-link @(ViewBag.Current == "LichDonDep" ? "active bg-warning" : "text-white")">
+                                    Lịch Dọn Dẹp
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                    else if (nvSession.MaCV == "QLKH")
+                    {
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="fw-bolder text-uppercase text-warning fs-4">
+                            QUẢN LÝ KHÁCH HÀNG
+                        </li>
+                        <li>
+                            <a href="@Url.Action("DanhSachKH","QuanLyKH")" class="nav-link @(ViewBag.Current == "DanhSachKH" ? "active bg-warning" : "text-white")">
+                                Danh sách khách hàng
+                            </a>
+                        </li>
+                    </ul>
+                    }
+                    else if (nvSession.MaCV == "TPNS")
+                    {
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="fw-bolder text-uppercase text-warning fs-4">
+                            QUẢN LÝ NHÂN VIÊN
+                        </li>
+                        <li>
+                            <a href="@Url.Action("DanhSachNV","QuanLyNS")" class="nav-link @(ViewBag.Current == "DanhSachNV" ? "active bg-warning" : "text-white")">
+                                Danh sách nhân viên
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ThemNhanVien","QuanLyNS")" class="nav-link @(ViewBag.Current == "ThemNV" ? "active bg-warning" : "text-white")">
+                                Thêm nhân viên
+                            </a>
+                        </li>
+                    </ul>
+                    }
+                }
+            }
+            @{
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
+                        @{
+                            if (nvSession != null)
+                            {
+                                <strong>@nvSession.HoTen</strong>
+                            }
+                            else if (nvSession == null)
+                            {
+                                <script type="text/javascript">
+                                window.location.href = '@Url.Action("Login", "Admin")';
+                                </script>
+                            }
+                        }
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("TrangNhanVien","Admin",new {maNV=nvSession.MaNV})">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="@Url.Action("Logout","Admin")">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            }
+        </div>
+        <div class="scrollable-table" style="width:80%">
+            @RenderBody()
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

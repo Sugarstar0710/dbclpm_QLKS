@@ -1,0 +1,143 @@
+﻿@model WebQLKS.Models.tbl_DichVu
+
+@{
+    ViewBag.Title = "detailService";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    DateTime a = DateTime.Now.AddDays(3);
+
+}
+<style>
+    .form-detail {
+        border: 5px solid white;
+        display: grid;
+        place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
+        height: 10%;
+        width: 100%;
+    }
+
+    .color-button {
+        color: dodgerblue;
+    }
+    img{
+        border-radius:20px;
+    }
+</style>
+<div class="container card w-50 text-center">
+    <h2 style="text-align:center">Thông tin cụ thể</h2>
+    @if (TempData["SuccessServiceMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessServiceMessage"]
+        </div>
+        <script type="text/javascript">
+            setTimeout(function() {
+                window.location.href = '@Url.Action("historyService", "Account")';
+            }, 2000);
+        </script>
+    }
+    else if (TempData["ErrorService"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorService"]
+        </div>
+    }
+    <div class="form-detail  ">
+        <hr />
+        @using (Html.BeginForm("orderService", "Service", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <dl class="dl-horizontal">
+                <dd style="width:50%;margin-left:25%">
+                    @{
+                        if (Model.MaLoaiDV == "DV01")
+                        {
+                            if (Model.img != null)
+                            {
+                                <img src="~/Content/Service/DonDep/@Model.img" class="card-img-top frame" alt="Image Description">
+                            }
+                            else
+                            {
+                                <img src="~/Content/Home/Image/empty.jpg" class="card-img-top frame" alt="Image Description">
+                            }
+
+                        }
+                        else if (Model.MaLoaiDV == "DV02")
+                        {
+                            if (Model.img != null)
+                            {
+                                <img src="~/Content/Service/menu/@Model.img" class="card-img-top frame" alt="Image Description">
+                            }
+                            else
+                            {
+                                <img src="~/Content/Home/Image/empty.jpg" class="card-img-top frame" alt="Image Description">
+                            }
+
+                        }
+                        else if (Model.MaLoaiDV == "DV03")
+                        {
+                            if (Model.img != null)
+                            {
+                                <img src="~/Content/Service/spa/@Model.img" class="card-img-top frame" alt="Image Description">
+                            }
+                            else
+                            {
+                                <img src="~/Content/Home/Image/empty.jpg" class="card-img-top frame" alt="Image Description">
+                            }
+
+                        }
+                        else if (Model.MaLoaiDV == "DV04")
+
+                        {
+                            if (Model.img != null)
+                            {
+                                <img src="~/Content/Service/spa/@Model.img" class="card-img-top frame" alt="Image Description">
+                            }
+                            else
+                            {
+                                <img src="~/Content/Home/Image/empty.jpg" class="card-img-top frame" alt="Image Description">
+                            }
+                        }
+                    }
+                </dd>
+                <dt>
+                    Tên dịch vụ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenDV)
+                </dd>
+
+                <dt>
+                    Đơn giá dịch vụ
+                </dt>
+
+                <dd>
+                    @String.Format(info, "{0:0,0}", Model.DonGia) VND
+                </dd>
+
+                <dt>
+                    Mô tả dịch vụ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MoTa)
+                </dd>
+
+                <dt>
+                    Tên loại dịch vụ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbl_LoaiDichVu.TenLoaiDV)
+                </dd>
+
+            </dl>
+            <input type="hidden" id="maDV" name="maDV" value="@Model.MaDV" />
+            <input class="btn btn-success" type="submit" value="Đặt Dịch Vụ" />
+        }
+
+    </div>
+</div>

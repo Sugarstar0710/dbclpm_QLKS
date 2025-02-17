@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebQLKS.Models.tbl_Phong>
+
+@{
+    ViewBag.Title = "Danh Sách Phòng";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<style>
+    table {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    td > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    td {
+        width: 50px;
+        height: 200px;
+    }
+</style>
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    DateTime a = DateTime.Now.AddDays(3);
+
+}
+<div class="container">
+    <h2 class="text-center mt-2 fw-bold text-uppercase">Danh Sách Phòng</h2>
+
+    <p>
+        @Html.ActionLink("Tạo Phòng Mới", "ThemPhong", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Số Phòng
+            </th>
+            <th>
+                Hình Ảnh
+            </th>
+            <th>
+                Loại Phòng
+            </th>
+            <th>
+                Trạng Thái
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoPhong)
+                </td>
+                <td>
+                    @{
+                        if (item.HinhAnh != null)
+                        {
+                            <img src="~/Content/Room/img/@item.HinhAnh" alt="..." loading="lazy" />
+                        }
+                        else
+                        {
+                            <img src="~/Content/Home/Image/empty.jpg" alt="..." />
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_LoaiPhong.TenLoaiPhong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_TrangThaiPhong.TenTrangThai)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "ChinhSuaPhong", new { maPhong = item.MaPhong }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Chi Tiết", "ChiTietPhong", new { maPhong = item.MaPhong }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Xóa", "XoaPhong", new { maPhong = item.MaPhong }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
