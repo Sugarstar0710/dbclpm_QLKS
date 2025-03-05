@@ -1567,6 +1567,7 @@ namespace WebQLKS.Areas.Admin.Controllers
             }
             List<string> lstTrangThai = new List<string>()
             {
+                "Đã hủy",
                 "Chưa thanh toán",
                 "Đã thanh toán",
                 "Đã đặt cọc"

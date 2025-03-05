@@ -31,7 +31,7 @@ namespace WebQLKS.Models
         public string MatKhau { get; set; }
         [NotMapped]
         [Compare("MatKhau")]
-        [DisplayName("Nh?p l?i m?t kh?u")]
+        [DisplayName("Nhap lai mat khau")]
         public string ConfirmPass { get; set; }
         public string Email { get; set; }
         public string SDT { get; set; }
