@@ -3,8 +3,10 @@ using PayPal.Api;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
@@ -117,7 +119,28 @@ namespace WebQLKS.Controllers
             ViewBag.khachhang = user;
             return View(db.tbl_KhachHang.Where(s => s.MaKH == makh).FirstOrDefault());
         }
+
         [HttpPost]
+        //public ActionResult EditUser(string makh, tbl_KhachHang kh)
+        //{
+        //    if (Session["KH"] == null)
+        //    {
+        //        TempData["SessionKhNull"] = "Phiên đăng nhập đã hết hạn. Hãy đăng nhập lại để tiếp tục";
+        //        return RedirectToAction("LoginAcountKH", "LoginAcount");
+        //    }
+        //    if (kh.QuocTich == "Việt Nam")
+        //    {
+        //        kh.MaLoaiKH = 2;
+        //    }
+        //    else
+        //    {
+        //        kh.MaLoaiKH = 1;
+        //    }
+        //    db.Entry(kh).State = System.Data.Entity.EntityState.Modified;
+        //    db.SaveChanges();
+        //    return RedirectToAction("UserInfor", "Account");
+        //}
+
         public ActionResult EditUser(string makh, tbl_KhachHang kh)
         {
             if (Session["KH"] == null)
@@ -125,18 +148,55 @@ namespace WebQLKS.Controllers
                 TempData["SessionKhNull"] = "Phiên đăng nhập đã hết hạn. Hãy đăng nhập lại để tiếp tục";
                 return RedirectToAction("LoginAcountKH", "LoginAcount");
             }
-            if (kh.QuocTich == "Việt Nam")
+
+            if (!ModelState.IsValid)
             {
-                kh.MaLoaiKH = 2;
+                TempData["Error"] = "Dữ liệu không hợp lệ!";
+                return View(kh);
             }
-            else
+
+            var khachHang = db.tbl_KhachHang.Find(makh);
+            if (khachHang == null)
             {
-                kh.MaLoaiKH = 1;
+                TempData["Error"] = "Khách hàng không tồn tại!";
+                return RedirectToAction("UserInfor", "Account");
             }
-            db.Entry(kh).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+
+            // Debug kiểm tra EntityState
+            Debug.WriteLine($"Trạng thái ban đầu của khachHang: {db.Entry(khachHang).State}");
+
+            // Cập nhật thông tin khách hàng
+            khachHang.HoTen = kh.HoTen;
+            khachHang.Email = kh.Email;
+            khachHang.MatKhau = kh.MatKhau;
+            khachHang.ConfirmPass = kh.ConfirmPass;
+            khachHang.SDT = kh.SDT;
+            khachHang.NgaySinh = kh.NgaySinh;
+            khachHang.CCCD = kh.CCCD;
+            khachHang.DiaChi = kh.DiaChi;
+            khachHang.QuocTich = kh.QuocTich;
+            khachHang.MaLoaiKH = (kh.QuocTich == "Việt Nam") ? 2 : 1;
+
+            // Đảm bảo Entity Framework theo dõi object này
+            db.Entry(khachHang).State = System.Data.Entity.EntityState.Modified;
+
+            // Debug kiểm tra EntityState trước khi lưu
+            Debug.WriteLine($"Trạng thái trước khi lưu: {db.Entry(khachHang).State}");
+
+            try
+            {
+                db.SaveChanges();
+                Debug.WriteLine("Lưu thành công!");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Lỗi khi lưu: " + ex.Message);
+                TempData["Error"] = "Lỗi khi lưu thông tin!";
+                return View(kh);
+            }
             return RedirectToAction("UserInfor", "Account");
         }
+
 
         public ActionResult HuyDatPhong(string maPT)
         {
@@ -199,7 +259,6 @@ namespace WebQLKS.Controllers
             return View(hd);
         }
 
-
         public ActionResult FailureView()
         {
 
@@ -261,8 +320,8 @@ namespace WebQLKS.Controllers
             }
             catch (PayPal.HttpException ex)
             {
-                string logFilePath = Server.MapPath("C:\\Users\\PHONG VAN PC\\OneDrive\\Máy tính\\test.txt\"");
-                System.IO.File.AppendAllText(logFilePath, DateTime.Now.ToString() + ": " + ex.Message + Environment.NewLine);
+                //string logFilePath = Server.MapPath("C:\\Users\\PHONG VAN PC\\OneDrive\\Máy tính\\test.txt\"");
+                //System.IO.File.AppendAllText(logFilePath, DateTime.Now.ToString() + ": " + ex.Message + Environment.NewLine);
                 return View("FailureView");
             }
 
@@ -294,6 +353,7 @@ namespace WebQLKS.Controllers
         }
         private Payment CreatePayment(APIContext apiContext, string redirectUrl)
         {
+
             var hoaDon = Session["HD"] as tbl_HoaDon;
             double subTotal = (double)hoaDon.TongTien;
             double convertUSD = Math.Round(subTotal / 25380, 2);
@@ -355,5 +415,7 @@ namespace WebQLKS.Controllers
             // Create a payment using a APIContext  
             return this.payment.Create(apiContext);
         }
+
+
     }
 }

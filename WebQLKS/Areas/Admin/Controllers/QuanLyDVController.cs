@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -131,7 +132,27 @@ namespace WebQLKS.Areas.Admin.Controllers
             var maLoai = db.tbl_LoaiPhong.ToList();
             ViewBag.maTT = new SelectList(maTT, "MaTrangThai", "TenTrangThai"); ;
             ViewBag.MaLoai = new SelectList(maLoai, "MaLoaiPhong", "TenLoaiPhong"); ;
+
+
+            //var roomType = db.tbl_Phong.Where(r => r.MaPhong == maPhong).FirstOrDefault();
+            //return View(roomType);
+
             var roomType = db.tbl_Phong.Where(r => r.MaPhong == maPhong).FirstOrDefault();
+            Debug.WriteLine("Mã phòng: " + roomType);
+
+            
+            if (roomType != null)
+            {
+                Debug.WriteLine("Mã phòng: " + roomType.MaPhong);
+                Debug.WriteLine("Mã trạng thái: " + roomType.MaTrangThai);
+                Debug.WriteLine("Số phòng: " + roomType.SoPhong);
+                Debug.WriteLine("Loại phòng: " + roomType.MaLoaiPhong);
+            }
+            else
+            {
+                Debug.WriteLine("Không tìm thấy phòng có mã: " + maPhong);
+            }
+
             return View(roomType);
         }
         [HttpPost]
